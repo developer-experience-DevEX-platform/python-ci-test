@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  ci:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    uses: developer-experience-DevEX-platform/ci-cd-templates/.github/workflows/python-ci.yml@main
+    with:
+      working_directory: .
+      dockerfile_path: ./Dockerfile
+      python_version: "3.13"
+      has_integration_tests: true
+      integration_test_vars: |
+        {
+          "TEST_ENV": "${{ vars.TEST_ENV }}"
+        }
