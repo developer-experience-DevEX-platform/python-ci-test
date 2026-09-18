@@ -7,11 +7,10 @@ RUN pip install --no-cache-dir --prefix=/install fastapi uvicorn
 
 FROM python:3.13-slim-bookworm AS runtime
 
-# hadolint ignore=DL3008,DL3005,DL3013
+# hadolint ignore=DL3008,DL3005
 RUN apt-get update \
     && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/* \
-    && pip install --no-cache-dir --upgrade "setuptools>=78.1.1" \
     && groupadd --gid 1000 app \
     && useradd --uid 1000 --gid app --create-home --shell /usr/sbin/nologin app
 
@@ -22,6 +21,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 COPY --from=build /install /usr/local
 COPY src ./src
+
+# hadolint ignore=DL3013
+RUN pip install --no-cache-dir --upgrade "setuptools>=78.1.1" "msgpack>=1.2.1"
 
 USER 1000
 
