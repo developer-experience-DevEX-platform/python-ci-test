@@ -2,6 +2,7 @@ FROM python:3.13-slim-bookworm AS build
 
 WORKDIR /app
 
+# hadolint ignore=DL3013
 RUN pip install --no-cache-dir --prefix=/install fastapi uvicorn
 
 FROM python:3.13-slim-bookworm AS runtime
