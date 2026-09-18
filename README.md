@@ -1,10 +1,12 @@
-# Python CI Test
+# python-ci-test
 
-Temporary FastAPI service for validating the DevEx platform's reusable Python CI workflow.
-
-## Local development
+FastAPI service used to prove the Python GitOps golden path.
 
 ```bash
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+make format-check
+make lint
+make test
+make test-integration
+uvicorn src.main:app --reload --port 8000
 ```

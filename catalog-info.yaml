@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: python-ci-test
+  description: Python golden-path test service
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/developer-experience
