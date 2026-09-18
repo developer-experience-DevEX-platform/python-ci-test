@@ -23,7 +23,9 @@ COPY --from=build /install /usr/local
 COPY src ./src
 
 # hadolint ignore=DL3013
-RUN pip install --no-cache-dir --upgrade "setuptools>=78.1.1" "msgpack>=1.2.1"
+RUN pip uninstall -y setuptools || true \
+    && pip uninstall -y msgpack || true \
+    && pip install --no-cache-dir "setuptools>=78.1.1"
 
 USER 1000
 
