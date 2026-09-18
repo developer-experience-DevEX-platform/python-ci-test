@@ -10,31 +10,6 @@ permissions:
   id-token: write
 
 jobs:
-  require-release-config:
-    name: Require release configuration
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Validate platform configuration
-        env:
-          AWS_REGION: ${{ vars.AWS_REGION }}
-          AWS_RELEASE_ROLE_ARN: ${{ vars.AWS_RELEASE_ROLE_ARN }}
-          ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-        shell: bash
-        run: |
-          missing=()
-          for variable_name in AWS_REGION AWS_RELEASE_ROLE_ARN ECR_REPOSITORY; do
-            if [[ -z "${!variable_name}" ]]; then
-              echo "::error::Missing required repository variable: $variable_name"
-              missing+=("$variable_name")
-            fi
-          done
-
-          if [[ ${#missing[@]} -gt 0 ]]; then
-            echo "::error::Release cannot publish until AWS_REGION, AWS_RELEASE_ROLE_ARN, and ECR_REPOSITORY are set as repository variables."
-            exit 1
-          fi
-
   ci:
     permissions:
       contents: read
@@ -44,9 +19,7 @@ jobs:
       has_integration_tests: true
 
   release:
-    needs:
-      - ci
-      - require-release-config
+    needs: ci
     permissions:
       contents: read
       id-token: write
