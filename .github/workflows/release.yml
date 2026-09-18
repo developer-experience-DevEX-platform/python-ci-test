@@ -19,7 +19,6 @@ jobs:
       has_integration_tests: true
 
   release:
-    if: ${{ vars.AWS_REGION != '' && vars.AWS_RELEASE_ROLE_ARN != '' && vars.ECR_REPOSITORY != '' }}
     needs: ci
     permissions:
       contents: read
