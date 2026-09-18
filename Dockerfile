@@ -23,9 +23,10 @@ COPY --from=build /install /usr/local
 COPY src ./src
 
 # hadolint ignore=DL3013
-RUN pip uninstall -y setuptools || true \
-    && pip uninstall -y msgpack || true \
-    && pip install --no-cache-dir "setuptools>=78.1.1"
+RUN python -m pip uninstall -y setuptools msgpack || true \
+    && python -m pip install --no-cache-dir "setuptools>=78.1.1" \
+    && rm -rf /usr/local/lib/python*/ensurepip \
+    && find /usr -iname 'msgpack*' -delete
 
 USER 1000
 
