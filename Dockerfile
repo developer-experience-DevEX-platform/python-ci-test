@@ -22,11 +22,18 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 COPY --from=build /install /usr/local
 COPY src ./src
 
-# hadolint ignore=DL3013
-RUN python -m pip uninstall -y setuptools msgpack || true \
-    && python -m pip install --no-cache-dir "setuptools>=78.1.1" \
-    && rm -rf /usr/local/lib/python*/ensurepip \
-    && find /usr -iname 'msgpack*' -delete
+# pip/ensurepip ship unfixed setuptools and msgpack that Trivy flags.
+# The runtime image does not need pip.
+RUN rm -rf \
+      /usr/local/lib/python*/ensurepip \
+      /usr/local/lib/python*/site-packages/pip \
+      /usr/local/lib/python*/site-packages/pip-*.dist-info \
+      /usr/local/bin/pip \
+      /usr/local/bin/pip3 \
+      /usr/local/bin/pip3.* \
+      /usr/local/lib/python*/site-packages/setuptools \
+      /usr/local/lib/python*/site-packages/setuptools-*.dist-info \
+      /usr/local/lib/python*/site-packages/pkg_resources
 
 USER 1000
 
