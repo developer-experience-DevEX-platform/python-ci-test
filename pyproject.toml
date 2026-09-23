@@ -1,3 +1,27 @@
+[project]
+name = "python-ci-test"
+version = "0.1.0"
+description = "Python golden-path test service"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+]
+
+[dependency-groups]
+dev = [
+    "black",
+    "httpx",
+    "psycopg[binary]",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "testcontainers[postgres]",
+]
+
+[tool.uv]
+package = false
+
 [tool.black]
 line-length = 88
 target-version = ["py313"]

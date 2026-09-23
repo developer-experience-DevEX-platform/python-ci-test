@@ -1,9 +1,0 @@
-black
-fastapi
-httpx
-psycopg[binary]
-pytest
-pytest-cov
-ruff
-testcontainers[postgres]
-uvicorn
