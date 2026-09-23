@@ -3,10 +3,8 @@
 FastAPI service used to prove the Python GitOps golden path.
 
 ```bash
-pip install -r requirements.txt
-make format-check
-make lint
-make test
+uv sync
+make verify
 make test-integration
-uvicorn src.main:app --reload --port 8000
+uv run uvicorn src.main:app --reload --port 8000
 ```

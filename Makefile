@@ -1,13 +1,15 @@
-.PHONY: format-check lint test test-integration
+.PHONY: format-check lint test test-integration verify
 
 format-check:
-	black --check .
+	uv run black --check .
 
 lint:
-	ruff check .
+	uv run ruff check .
 
 test:
-	pytest -m "not integration" --cov=src --cov-report=xml --cov-report=term-missing
+	uv run pytest -m "not integration" --cov=src --cov-report=xml --cov-report=term-missing
 
 test-integration:
-	pytest -m integration
+	uv run pytest -m integration
+
+verify: format-check lint test
