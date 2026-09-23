@@ -18,7 +18,7 @@ jobs:
   ci:
     permissions:
       contents: read
-    uses: developer-experience-DevEX-platform/ci-cd-templates/.github/workflows/python-ci.yml@main
+    uses: developer-experience-DevEX-platform/ci-cd-templates/.github/workflows/python-ci.yml@v1.6.0
     secrets: inherit
     with:
       has_integration_tests: true
@@ -29,4 +29,4 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: developer-experience-DevEX-platform/ci-cd-templates/.github/workflows/container-release.yml@main
+    uses: developer-experience-DevEX-platform/ci-cd-templates/.github/workflows/container-release.yml@v1.6.0
